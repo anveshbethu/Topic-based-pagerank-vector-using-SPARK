@@ -1,7 +1,9 @@
+# algorithm
 import re
 import sys
 from operator import add
 from pyspark import SparkContext
+# 
 def creatpair(line):
         key = line[0].split()
         value = line[1]
@@ -54,11 +56,17 @@ def ad((x,y)):
 		t = x
 	else:
 		t = x+y
-	return t	
+	return t
+
+#execution starts from here
+#check for the input args
 if len(sys.argv) != 6:
     print >> sys.stderr, "Usage: wordcount <html_word> <related_word> <html_url> <out_file> <iterations>"
     exit(-1)
+#setting the SparkContext
 sc = SparkContext(appName="PythonWordDocCount")
+#input file -- this is the file which contain all the web pages
+#this is the file made by appending all the web pages with 
 lines = sc.textFile(sys.argv[1]) 
 related_words = sc.textFile(sys.argv[2])
 words = related_words.map(lambda (line): (line.lower(), 1))
